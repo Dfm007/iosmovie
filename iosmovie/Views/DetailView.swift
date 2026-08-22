@@ -66,15 +66,13 @@ struct DetailView: View {
             }
             await viewModel.loadDetail(path: detailURL)
         }
-.overlay {
-    if let source = playingSource {
-        PlayerView(source: source, allSources: viewModel.sources) {
-            playingSource = nil
+        .fullScreenCover(item: $playingSource) { source in
+            PlayerView(source: source, allSources: viewModel.sources) {
+                playingSource = nil
+            }
+            .ignoresSafeArea()
         }
-        .transition(.move(edge: .bottom))
-        .zIndex(1)
     }
-}
     }
 
     private var headerView: some View {
